@@ -1,13 +1,17 @@
 from django.contrib import admin
+from django.contrib.auth.admin import UserAdmin
 
-from accounts.models import Profile, Country
+from .forms import CustomUserCreationForm, CustomUserChangeForm
+from .models import CustomUser
 
+# Register your models here.
 
-@admin.register(Profile)
-class ProfileAdmin(admin.ModelAdmin):
-    list_display = ['user', 'phone_number']
+#SignUp
+class CustomUserAdmin(UserAdmin):
+    add_form = CustomUserCreationForm
+    form = CustomUserChangeForm
+    model = CustomUser
+    list_display = ['email', 'username', 'age', 'is_staff', ]
 
+admin.site.register(CustomUser, CustomUserAdmin)
 
-@admin.register(Country)
-class CountryAdmin(admin.ModelAdmin):
-    list_display = ['name', 'abbr', 'is_active']
