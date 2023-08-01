@@ -1,0 +1,91 @@
+<!-- login.html -->
+<html>
+<head>
+    <title>Login</title>
+    <!-- add bootstrap CDN link -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- add font awesome CDN link for eye icon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- use justify-content-center class to center the form horizontally -->
+        <div class="row justify-content-center">
+            <!-- use col-md-6 class to set the width of the form to 6 columns -->
+            <div class="col-md-6">
+                <!-- use card class to create a box for the form -->
+                <div class="card">
+                    <!-- use card-header and card-body classes to style the form -->
+                    <div class="card-header">
+                        <h1 class="text-center">Login</h1>
+                    </div>
+                    <div class="card-body">
+                        <!-- load widget_tweaks filter -->
+                        {% load widget_tweaks %}
+                        <form method="post">
+                            {% csrf_token %}
+                            <!-- use bootstrap form classes -->
+                            <div class="form-group">
+                                <!-- use form label tag -->
+                                {{ form.username.label_tag }}
+                                <!-- use form field tag with add_class filter -->
+                                {{ form.username|add_class:"form-control" }}
+                                <!-- use form errors tag -->
+                                {{ form.username.errors }}
+                            </div>
+                            <div class="form-group">
+                                <!-- use form label tag -->
+                                {{ form.password.label_tag }}
+                                <!-- use input-group class to wrap the password field and the show password button -->
+                                <div class="input-group">
+                                    <!-- use form field tag with add_class filter and append id attribute -->
+                                    {{ form.password|add_class:"form-control"|attr:"id:id_password" }}
+                                    <!-- use input-group-append class to add the show password button after the password field -->
+                                    <div class="input-group-append">
+                                        <!-- create a checkbox input for show password button with hidden style -->
+                                        <input type="checkbox" id="show-password" style="display:none;">
+                                        <!-- create a span element with eye icon for show password button and link it to the checkbox input with for attribute -->
+                                        <span class="input-group-text" for="show-password"><i class="fas fa-eye"></i></span>
+                                    </div>
+                                    <!-- use form errors tag -->
+                                    {{ form.password.errors }}
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Login</button>
+                        </form>
+                        <!-- create a horizontal line with hr tag -->
+                        <hr>
+                        <!-- create a paragraph with text-align-center and mb-0 classes to center the text and remove the bottom margin -->
+                        <p class="text-center mb-0">OR</p>
+                        <!-- create another paragraph with text-align-center and mt-0 classes to center the text and remove the top margin -->
+                        <p class="text-center mt-0">Don't have an account? <a href="{% url 'register' %}">Sign up.</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- write javascript code inside script tag -->
+    <script>
+        // define a function to toggle the password field type
+        function togglePassword() {
+            // get the password field
+            var passwordField = document.getElementById("id_password");
+            // get the current type of the password field
+            var passwordFieldType = passwordField.getAttribute("type");
+            // check if the current type is password
+            if (passwordFieldType == "password") {
+                // change the type to text
+                passwordField.setAttribute("type", "text");
+            } else {
+                // change the type back to password
+                passwordField.setAttribute("type", "password");
+            }
+        }
+        // get the show password checkbox
+        var showPasswordCheckbox = document.getElementById("show-password");
+        // add an event listener to the checkbox to call the togglePassword function when clicked
+        showPasswordCheckbox.addEventListener("click", togglePassword);
+    </script>
+</body>
+</html>
+
