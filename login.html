@@ -2,10 +2,86 @@
 <html>
 <head>
     <title>Login</title>
-    <!-- add bootstrap CDN link -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <!-- add font awesome CDN link for eye icon -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            background-color: #ffffff;
+            display: flex;
+            align-items:center;
+            justify-content: center;
+            height: 100vh;
+
+        }
+
+        input[type=text], input[type=password] {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px auto;
+            border: 1px solid #b3d9ff;
+            box-sizing: border-box;
+            box-shadow: 5px 5px 10px #888888;
+            border-radius: 20px;
+        }
+
+        label {
+          display: block;
+        }
+
+        input[type=text]:focus, input[type=password]:focus {
+            outline: none;
+        }
+
+        input::placeholder {
+          color: #b3d9ff;
+        }
+
+        #toggle-password {
+          display: none;
+        }
+
+        #toggle-password + label {
+          text-indent: -9999px;
+          display: inline-block;
+          width: 20px;
+          height: 20px;
+          margin-left: -32px;
+          cursor: pointer;
+        }
+
+    </style>
+    <script>
+        // تعریف متغیرهای مربوط به ورودی پسورد و چک باکس
+        const password = document.getElementById("password");
+        const togglePassword = document.getElementById("toggle-password");
+
+        // تعریف متغیرهای مربوط به آیکون‌های چشم
+        const showEye = document.getElementById("show_eye");
+        const hideEye = document.getElementById("hide_eye");
+
+        // تعریف تابع toggleClicked که با کلیک روی چک باکس اجرا می‌شود
+        function toggleClicked() {
+          // اگر چک باکس علامت دار شد
+          if (this.checked) {
+            // نوع ورودی پسورد را به text تغییر بده
+            password.type = "text";
+            // آیکون چشم دیدن را نشان بده و آیکون چشم عدم دیدن را مخفی کن
+            showEye.classList.remove("d-none");
+            hideEye.classList.add("d-none");
+          } else {
+            // در غیر این صورت
+            // نوع ورودی پسورد را به password تغییر بده
+            password.type = "password";
+            // آیکون چشم عدم دیدن را نشان بده و آیکون چشم دیدن را مخفی کن
+            hideEye.classList.remove("d-none");
+            showEye.classList.add("d-none");
+          }
+        }
+
+        // اضافه کردن رویداد click به چک باکس
+        togglePassword.addEventListener("click", toggleClicked);
+
+    </script>
 </head>
 <body>
     <div class="container">
@@ -14,7 +90,7 @@
             <!-- use col-md-6 class to set the width of the form to 6 columns -->
             <div class="col-md-6">
                 <!-- use card class to create a box for the form -->
-                <div class="card">
+                <div class="card" style="max-width: 75%; box-shadow: 5px 5px 10px #888888;">
                     <!-- use card-header and card-body classes to style the form -->
                     <div class="card-header">
                         <h1 class="text-center">Login</h1>
@@ -41,17 +117,11 @@
                                     <!-- use form field tag with add_class filter and append id attribute -->
                                     {{ form.password|add_class:"form-control"|attr:"id:id_password" }}
                                     <!-- use input-group-append class to add the show password button after the password field -->
-                                    <div class="input-group-append">
-                                        <!-- create a checkbox input for show password button with hidden style -->
-                                        <input type="checkbox" id="show-password" style="display:none;">
-                                        <!-- create a span element with eye icon for show password button and link it to the checkbox input with for attribute -->
-                                        <span class="input-group-text" for="show-password"><i class="fas fa-eye"></i></span>
-                                    </div>
                                     <!-- use form errors tag -->
                                     {{ form.password.errors }}
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-primary">Login</button>
+                            <button type="submit" class="btn btn-primary" >Login</button>
                         </form>
                         <!-- create a horizontal line with hr tag -->
                         <hr>
