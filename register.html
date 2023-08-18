@@ -1,0 +1,174 @@
+<!-- register.html -->
+<html>
+<head>
+    <title>Register</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+        <style>
+        body {
+            background-color: #ffffff;
+            display: flex;
+            align-items:center;
+            justify-content: center;
+            height: 100vh;
+
+        }
+
+        input[type=text],input[type=email], input[type=password] {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px auto;
+            border: 1px solid #b3d9ff;
+            box-sizing: border-box;
+            box-shadow: 5px 5px 10px #888888;
+            border-radius: 20px;
+        }
+
+        label {
+          display: block;
+        }
+
+        input[type=text]:focus, input[type=password]:focus {
+            outline: none;
+        }
+
+        input::placeholder {
+          color: #b3d9ff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- use justify-content-center class to center the form horizontally -->
+        <div class="row justify-content-center">
+            <!-- use col-md-6 class to set the width of the form to 6 columns -->
+            <div class="col-md-6">
+                <!-- use card class to create a box for the form -->
+                <div class="card" style="max-width: 75%; box-shadow: 5px 5px 10px #888888;">
+                    <!-- use card-header and card-body classes to style the form -->
+                    <div class="card-header">
+                        <h1 class="text-center">Register</h1>
+                    </div>
+                    <div class="card-body">
+                        <!-- load widget_tweaks filter -->
+                        {% load widget_tweaks %}
+                        <form method="post">
+                            {% csrf_token %}
+                            <!-- use bootstrap form classes -->
+                            <div class="form-group">
+                                <!-- use form label tag -->
+                                {{ form.username.label_tag }}
+                                <!-- use form field tag with add_class filter -->
+                                {{ form.username|add_class:"form-control" }}
+                                <!-- use form errors tag -->
+                                {{ form.username.errors }}
+                            </div>
+                            <div class="form-group">
+                                <!-- use form label tag -->
+                                {{ form.email.label_tag }}
+                                <!-- use form field tag with add_class filter -->
+                                {{ form.email|add_class:"form-control" }}
+                                <!-- use form errors tag -->
+                                {{ form.email.errors }}
+                            </div>
+                            <div class="form-group">
+                                <!-- use form label tag -->
+                                {{ form.password1.label_tag }}
+                                <!-- use input-group class to wrap the password field and the show password button -->
+                                <div class="input-group">
+                                    <!-- use form field tag with add_class filter and append id attribute -->
+                                    {{ form.password1|add_class:"form-control"|attr:"id:id_password1" }}
+                                    <!-- remove the input-group-append div that contains the show password button for password1 field -->
+                                    <!--
+                                    <div class="input-group-append">
+                                        <input type="checkbox" id="show-password1" style="display:none;">
+                                        <span class="input-group-text" for="show-password1"><i class="fas fa-eye"></i></span>
+                                    </div>
+                                    -->
+                                    <!-- use form errors tag -->
+                                    {{ form.password1.errors }}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <!-- use form label tag -->
+                                {{ form.password2.label_tag }}
+                                <!-- use input-group class to wrap the password field and the show password button -->
+                                <div class="input-group">
+                                    <!-- use form field tag with add_class filter and append id attribute -->
+                                    {{ form.password2|add_class:"form-control"|attr:"id:id_password2" }}
+                                    <!-- remove the input-group-append div that contains the show password button for password2 field -->
+                                    <!--
+                                    <div class="input-group-append">
+                                        <input type="checkbox" id="show-password2" style="display:none;">
+                                        <span class="input-group-text" for="show-password2"><i class="fas fa-eye"></i></span>
+                                    </div>
+                                    -->
+                                    <!-- use form errors tag -->
+                                    {{ form.password2.errors }}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <!-- use form label tag -->
+                                {{ form.first_name.label_tag }}
+                                <!-- use form field tag with add_class filter -->
+                                {{ form.first_name|add_class:"form-control" }}
+                                <!-- use form errors tag -->
+                                {{ form.first_name.errors }}
+                            </div>
+                            <div class="form-group">
+                                <!-- use form label tag -->
+                                {{ form.last_name.label_tag }}
+                                <!-- use form field tag with add_class filter -->
+                                {{ form.last_name|add_class:"form-control" }}
+                                <!-- use form errors tag -->
+                                {{ form.last_name.errors }}
+                            </div>
+                            <div class="form-group">
+                                <!-- use form label tag -->
+                                {{ form.Date_Of_Birth.label_tag }}
+                                <!-- use form field tag with add_class filter -->
+                                {{ form.Date_Of_Birth|add_class:"form-control" }}
+                                <!-- use form errors tag -->
+                                {{ form.Date_Of_Birth.errors }}
+                            </div>
+                            <button type="submit" class="btn btn-primary">Register</button>
+                        </form>
+                        <!-- create a horizontal line with hr tag -->
+                        <hr>
+                        <!-- create a paragraph with text-align-center and mb-0 classes to center the text and remove the bottom margin -->
+                        <p class="text-center mb-0">OR</p>
+                        <!-- create another paragraph with text-align-center and mt-0 classes to center the text and remove the top margin -->
+                        <p class="text-center mt-0">Already have an account? <a href="{% url 'login' %}">Log in.</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- write javascript code inside script tag -->
+    <script>
+        // define a function to toggle the password field type
+        function togglePassword() {
+            // get the password field
+            var passwordField = document.getElementById("id_password");
+            // get the current type of the password field
+            var passwordFieldType = passwordField.getAttribute("type");
+            // check if the current type is password
+            if (passwordFieldType == "password") {
+                // change the type to text
+                passwordField.setAttribute("type", "text");
+            } else {
+                // change the type back to password
+                passwordField.setAttribute("type", "password");
+            }
+        }
+        // remove the code that gets the show password checkbox and adds an event listener to it
+        /*
+        // get the show password checkbox
+        var showPasswordCheckbox = document.getElementById("show-password");
+        // add an event listener to the checkbox to call the togglePassword function when clicked
+        showPasswordCheckbox.addEventListener("click", togglePassword);
+        */
+    </script>
+</body>
+</html>
+
